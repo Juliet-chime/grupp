@@ -5,7 +5,7 @@ export const baseRoutes = [
   {
     element: <WrapperLayout />,
     children: [
-      { path: "/", element: <div>Home page</div> },
+      { path: "/", element: <Settings /> },
       { path: "dashboard", element: <div>Dashboard</div> },
       { path: "project", element: <div>Projects</div> },
       { path: "tasks", element: <div>Task</div> },
