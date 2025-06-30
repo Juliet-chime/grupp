@@ -1,5 +1,5 @@
 import React from "react";
-import applogo from "../assets/image/content.png";
+import applogo from "../assets/image/Content.png";
 
 const LogoWrapper = () => {
   return (
