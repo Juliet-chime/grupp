@@ -1,38 +1,13 @@
-import applogo from "../assets/image/content.png";
 import customerService from "../assets/image/customerservice.svg";
-import {
-  BarChart3,
-  CheckSquare,
-  FileText,
-  Folder,
-  HelpCircle,
-  Home,
-  LogOut,
-  Settings,
-  Users,
-} from "lucide-react";
+import { LogOut } from "lucide-react";
 import { NavLink } from "react-router";
 import { useAppContext } from "../context/AppContext";
+import LogoWrapper from "./LogoWrapper";
+import { sidebarItems } from "../utils/data";
 
 const Sidebar = () => {
   const { showSideBar } = useAppContext();
 
-  const sidebarItems = [
-    { icon: Home, label: "Home", count: null, link: "/" },
-    { icon: BarChart3, label: "Dashboard", count: 10, link: "/dashboard" },
-    { icon: Folder, label: "Projects", count: null, link: "/project" },
-    { icon: CheckSquare, label: "Tasks", count: null, link: "/tasks" },
-    { icon: FileText, label: "Reporting", count: null, link: "/reporting" },
-    { icon: Users, label: "Users", count: null, link: "/users" },
-    { icon: HelpCircle, label: "Support", count: null, link: "/support" },
-    {
-      icon: Settings,
-      label: "Settings",
-      count: null,
-      active: true,
-      link: "/setting",
-    },
-  ];
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
       isActive
@@ -40,41 +15,34 @@ const Sidebar = () => {
         : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
     }`;
   return (
-    <div
-      className={`bg-white border w-full md:w-[350px] px-3 py-2 md:block 
-        flex 
-        h-screen
-        ${showSideBar ? "flex-col" : ""}
-        ${showSideBar ? "" : "hidden"}`}
-    >
-      <div className="flex items-center gap-3">
-        <img src={applogo} />
-        <span className="font-[900] text-[#101828] text-2xl">Untitled UI</span>
-      </div>
-      <div className="mt-5">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Olivia Rhye"
-            className="w-full pl-8 pr-4 py-2 border border-[#D6BBFB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D6BBFB] focus:border-transparent placeholder:text-[#101828] placeholder:pl-2"
-            readOnly
-            style={{
-              boxShadow: `0px 0px 0px 4px #F4EBFF,0px 1px 2px 0px #1018280D`,
-            }}
-          />
-          <div className="absolute left-2.5 top-2.5 w-[20px] h-[20px] text-[#667085]">
-            <svg viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                clipRule="evenodd"
-              />
-            </svg>
+    <>
+      <LogoWrapper />
+      {!showSideBar ? (
+        <div className="mt-5">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Olivia Rhye"
+              className="w-full pl-8 pr-4 py-2 border border-[#D6BBFB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D6BBFB] focus:border-transparent placeholder:text-[#101828] placeholder:pl-2"
+              readOnly
+              style={{
+                boxShadow: `0px 0px 0px 4px #F4EBFF,0px 1px 2px 0px #1018280D`,
+              }}
+            />
+            <div className="absolute left-2.5 top-2.5 w-[20px] h-[20px] text-[#667085]">
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
 
-      <nav className="flex-1 px-4 mt-3">
+      <nav className={`flex-1 px-4 ${showSideBar ? "mt-10" : "mt-3"}`}>
         <ul className="space-y-1">
           {sidebarItems.map((item, index) => (
             <li key={index}>
@@ -94,31 +62,33 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      <div className="py-4 px-2 md:p-2 mt-2">
-        <div className="bg-[#F9FAFB] p-4 rounded-lg">
-          <h4 className="font-[500] text-[14px] text-[#101828] mb-1">
-            New features available!
-          </h4>
-          <p className="font-[400] text-[14px] text-[#667085] mb-3">
-            Check out the new dashboard view. Pages now load faster.
-          </p>
-          <div className="w-full h-[136px] bg-gray-200 rounded-lg mb-3 overflow-hidden">
-            <img
-              src={customerService}
-              alt="Feature preview"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="flex gap-5 text-sm">
-            <button className="text-[#667085] text-[14px] font-[500] hover:text-[#667085]">
-              Dismiss
-            </button>
-            <button className="text-[#6941C6] text-[14px] font-[500] hover:text-[#6941C6]">
-              What's new?
-            </button>
+      {!showSideBar ? (
+        <div className="py-4 px-2 md:p-2 mt-2">
+          <div className="bg-[#F9FAFB] p-4 rounded-lg">
+            <h4 className="font-[500] text-[14px] text-[#101828] mb-1">
+              New features available!
+            </h4>
+            <p className="font-[400] text-[14px] text-[#667085] mb-3">
+              Check out the new dashboard view. Pages now load faster.
+            </p>
+            <div className="w-full h-[136px] bg-gray-200 rounded-lg mb-3 overflow-hidden">
+              <img
+                src={customerService}
+                alt="Feature preview"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="flex gap-5 text-sm">
+              <button className="text-[#667085] text-[14px] font-[500] hover:text-[#667085]">
+                Dismiss
+              </button>
+              <button className="text-[#6941C6] text-[14px] font-[500] hover:text-[#6941C6]">
+                What's new?
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
 
       <div className="py-1 border-t border-[#EAECF0]">
         <div className="flex items-center gap-3">
@@ -140,7 +110,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
